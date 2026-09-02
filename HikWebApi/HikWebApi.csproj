@@ -1,0 +1,122 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>E:\HikWebApi\HikWebApi\HikWebApi.xml</DocumentationFile>
+    <OutputPath></OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Canal\**" />
+    <Compile Remove="Common\**" />
+    <Compile Remove="DBUtility\**" />
+    <Compile Remove="Express\**" />
+    <Compile Remove="IDAL\**" />
+    <Compile Remove="logfile\**" />
+    <Compile Remove="Model\**" />
+    <Compile Remove="MSSQLDAL\**" />
+    <Compile Remove="MySQLDAL\**" />
+    <Compile Remove="Redis\**" />
+    <Compile Remove="Service\**" />
+    <Compile Remove="ShareDlls\**" />
+    <Compile Remove="Upload\**" />
+    <Content Remove="Canal\**" />
+    <Content Remove="Common\**" />
+    <Content Remove="DBUtility\**" />
+    <Content Remove="Express\**" />
+    <Content Remove="IDAL\**" />
+    <Content Remove="logfile\**" />
+    <Content Remove="Model\**" />
+    <Content Remove="MSSQLDAL\**" />
+    <Content Remove="MySQLDAL\**" />
+    <Content Remove="Redis\**" />
+    <Content Remove="Service\**" />
+    <Content Remove="ShareDlls\**" />
+    <Content Remove="Upload\**" />
+    <EmbeddedResource Remove="Canal\**" />
+    <EmbeddedResource Remove="Common\**" />
+    <EmbeddedResource Remove="DBUtility\**" />
+    <EmbeddedResource Remove="Express\**" />
+    <EmbeddedResource Remove="IDAL\**" />
+    <EmbeddedResource Remove="logfile\**" />
+    <EmbeddedResource Remove="Model\**" />
+    <EmbeddedResource Remove="MSSQLDAL\**" />
+    <EmbeddedResource Remove="MySQLDAL\**" />
+    <EmbeddedResource Remove="Redis\**" />
+    <EmbeddedResource Remove="Service\**" />
+    <EmbeddedResource Remove="ShareDlls\**" />
+    <EmbeddedResource Remove="Upload\**" />
+    <None Remove="Canal\**" />
+    <None Remove="Common\**" />
+    <None Remove="DBUtility\**" />
+    <None Remove="Express\**" />
+    <None Remove="IDAL\**" />
+    <None Remove="logfile\**" />
+    <None Remove="Model\**" />
+    <None Remove="MSSQLDAL\**" />
+    <None Remove="MySQLDAL\**" />
+    <None Remove="Redis\**" />
+    <None Remove="Service\**" />
+    <None Remove="ShareDlls\**" />
+    <None Remove="Upload\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="CHCNetSDKBAK.cs" />
+    <Compile Remove="CHCNetSDKNew.cs" />
+    <Compile Remove="Controllers\BasicDataController.cs" />
+    <Compile Remove="Controllers\BookChaptersController.cs" />
+    <Compile Remove="Controllers\HikController - 复制.cs" />
+    <Compile Remove="Controllers\SorterController.cs" />
+    <Compile Remove="Controllers\TokenController.cs" />
+    <Compile Remove="Controllers\WayBillApplyRequestController.cs" />
+    <Compile Remove="Controllers\WayBillUploadRequestController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="log4net.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="web.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="HikWebApi.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Connected Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="log4net" Version="2.0.15" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.2" />
+    <PackageReference Include="Microsoft.Extensions.PlatformAbstractions" Version="1.1.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.4.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.4.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HikWebApi.Model\HikWebApi.Model.csproj" />
+  </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
+</Project>

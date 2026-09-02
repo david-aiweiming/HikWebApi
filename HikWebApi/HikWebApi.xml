@@ -1,0 +1,167 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>HikWebApi</name>
+    </assembly>
+    <members>
+        <member name="T:HikWebApi.CHCNetSDK">
+            <summary>
+            CHCNetSDK 的摘要说明。
+            </summary>
+        </member>
+        <member name="F:HikWebApi.CHCNetSDK.NET_DVR_IPADDR.sIpV4">
+            char[16]
+        </member>
+        <member name="F:HikWebApi.CHCNetSDK.NET_DVR_IPADDR.byIPv6">
+            BYTE[128]
+        </member>
+        <member name="F:HikWebApi.CHCNetSDK.NET_DVR_ATM_FRAMEFORMAT_V30.byRes1">
+            输入方式:0-网络监听、1网络协议、2-串口监听、3-串口协议
+        </member>
+        <member name="F:HikWebApi.CHCNetSDK.NET_VCA_POLYGON.dwPointNum">
+            DWORD->unsigned int
+        </member>
+        <member name="F:HikWebApi.CHCNetSDK.NET_DVR_THERMOMETRY_ALARM.pThermalPicBuff">
+            可见光图片指针
+        </member>
+        <member name="F:HikWebApi.CHCNetSDK.MAX_OVERLAP_ITEM_NUM">
+            抓拍机
+            
+        </member>
+        <!-- Badly formed XML comment ignored for member "F:HikWebApi.CHCNetSDK.NET_DVR_DIAGNOSIS_UPLOAD.sMonitorIP" -->
+        <!-- Badly formed XML comment ignored for member "F:HikWebApi.CHCNetSDK.NET_DVR_DIAGNOSIS_UPLOAD.dwChanIndex" -->
+        <!-- Badly formed XML comment ignored for member "F:HikWebApi.CHCNetSDK.NET_DVR_DIAGNOSIS_UPLOAD.dwWidth" -->
+        <!-- Badly formed XML comment ignored for member "F:HikWebApi.CHCNetSDK.NET_DVR_DIAGNOSIS_UPLOAD.dwHeight" -->
+        <!-- Badly formed XML comment ignored for member "F:HikWebApi.CHCNetSDK.NET_DVR_DIAGNOSIS_UPLOAD.struCheckTime" -->
+        <!-- Badly formed XML comment ignored for member "F:HikWebApi.CHCNetSDK.NET_DVR_DIAGNOSIS_UPLOAD.byResult" -->
+        <member name="F:HikWebApi.CHCNetSDK.NET_DVR_DIAGNOSIS_UPLOAD.bySignalResult">
+            0-未检测 1-正常 2-异常 3-登录失败 4-取流异常
+        </member>
+        <!-- Badly formed XML comment ignored for member "F:HikWebApi.CHCNetSDK.NET_DVR_DIAGNOSIS_UPLOAD.byBlurResult" -->
+        <!-- Badly formed XML comment ignored for member "F:HikWebApi.CHCNetSDK.NET_DVR_DIAGNOSIS_UPLOAD.byLumaResult" -->
+        <!-- Badly formed XML comment ignored for member "F:HikWebApi.CHCNetSDK.NET_DVR_DIAGNOSIS_UPLOAD.byChromaResult" -->
+        <!-- Badly formed XML comment ignored for member "F:HikWebApi.CHCNetSDK.NET_DVR_DIAGNOSIS_UPLOAD.bySnowResult" -->
+        <!-- Badly formed XML comment ignored for member "F:HikWebApi.CHCNetSDK.NET_DVR_DIAGNOSIS_UPLOAD.byStreakResult" -->
+        <!-- Badly formed XML comment ignored for member "F:HikWebApi.CHCNetSDK.NET_DVR_DIAGNOSIS_UPLOAD.byFreezeResult" -->
+        <!-- Badly formed XML comment ignored for member "F:HikWebApi.CHCNetSDK.NET_DVR_DIAGNOSIS_UPLOAD.byPTZResult" -->
+        <!-- Badly formed XML comment ignored for member "F:HikWebApi.CHCNetSDK.NET_DVR_DIAGNOSIS_UPLOAD.byContrastResult" -->
+        <!-- Badly formed XML comment ignored for member "F:HikWebApi.CHCNetSDK.NET_DVR_DIAGNOSIS_UPLOAD.byFlashResult" -->
+        <member name="T:HikWebApi.Controllers.HikController">
+            <summary>
+            Hik接口
+            </summary>
+        </member>
+        <member name="M:HikWebApi.Controllers.HikController.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            
+            </summary>
+            <param name="configuration"></param>
+        </member>
+        <member name="M:HikWebApi.Controllers.HikController.SetHikOsd(HikWebApi.Model.HikModel.HikSetOsdRequest)">
+            <summary>
+            设置OSD信息
+            </summary>
+            <param name="hikOsdRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HikWebApi.Controllers.HikController.ClearHikOsd(HikWebApi.Model.HikModel.HikSetOsdRequest)">
+            <summary>
+            清除OSD信息
+            </summary>
+            <param name="hikOsdRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HikWebApi.Controllers.HikController.EndTaoTianCut(System.Collections.Generic.List{HikWebApi.Model.TaoTianHikModel.TaoTianCutDataRequest})">
+            <summary>
+            结束淘天结束数据
+            </summary>
+            <param name="taoTianCutDataRequestList"></param>
+            <returns></returns>
+        </member>
+        <member name="T:HikWebApi.SQLiteHelper">
+            <summary>
+            数据访问基础类(基于SQLite)
+            可以用户可以修改满足自己项目的需要。
+            </summary>
+        </member>
+        <member name="M:HikWebApi.SQLiteHelper.ExecuteSql(System.String)">
+            <summary>
+            执行SQL语句，返回影响的记录数
+            </summary>
+            <param name="SQLString">SQL语句</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:HikWebApi.SQLiteHelper.ExecuteSqlTran(System.Collections.ArrayList)">
+            <summary>
+            执行多条SQL语句，实现数据库事务。
+            </summary>
+            <param name="SQLStringList">多条SQL语句</param>
+        </member>
+        <member name="M:HikWebApi.SQLiteHelper.GetSingle(System.String)">
+            <summary>
+            执行一条计算查询结果语句，返回查询结果（object）。
+            </summary>
+            <param name="SQLString">计算查询结果语句</param>
+            <returns>查询结果（object）</returns>
+        </member>
+        <member name="M:HikWebApi.SQLiteHelper.Query(System.String)">
+            <summary>
+            执行查询语句，返回DataSet
+            </summary>
+            <param name="SQLString">查询语句</param>
+            <returns>DataSet</returns>
+        </member>
+        <member name="M:HikWebApi.SQLiteHelper.ExecuteSql(System.String,Microsoft.Data.Sqlite.SqliteParameter[])">
+            <summary>
+            执行SQL语句，返回影响的记录数
+            </summary>
+            <param name="SQLString">SQL语句</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:HikWebApi.SQLiteHelper.GetSingle(System.String,Microsoft.Data.Sqlite.SqliteParameter[])">
+            <summary>
+            执行一条计算查询结果语句，返回查询结果（object）。
+            </summary>
+            <param name="SQLString">计算查询结果语句</param>
+            <returns>查询结果（object）</returns>
+        </member>
+        <member name="M:HikWebApi.TaoTianDAL.TaoTianHikDAL.GetList(System.String)">
+            <summary>
+            获得数据列表
+            </summary>
+        </member>
+        <member name="M:HikWebApi.TaoTianDAL.TaoTianHikDAL.GetLogList(System.String)">
+            <summary>
+            获得数据列表
+            </summary>
+        </member>
+        <member name="M:HikWebApi.TaoTianDAL.TaoTianHikDAL.GetGenSQL(HikWebApi.Model.TaoTianHikModel.TaoTianCutDataRequest)">
+            <summary>
+            生成sql
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HikWebApi.TaoTianDAL.TaoTianHikDAL.GetGenCutSQL(HikWebApi.Model.TaoTianHikModel.TaoTianCutDataRequest)">
+            <summary>
+            生成sql
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HikWebApi.TaoTianDAL.TaoTianHikDAL.Update(System.Int64,System.Int64)">
+            <summary>
+            更新数据
+            </summary>
+            <param name="ID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HikWebApi.TaoTianDAL.TaoTianHikDAL.BathAdd(System.Collections.ArrayList)">
+            <summary>
+            批量执行
+            </summary>
+            <param name="SQLStringList"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
