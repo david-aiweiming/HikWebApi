@@ -112,9 +112,9 @@ namespace HikWebApi.TaoTianDAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("insert into whs_taotian_upload(");
-            strSql.Append("user_name, ip_address, pass_word, port_no, channel_no, waybill_code, stock_code, start_time, end_time, picking_list_no)");
+            strSql.Append("user_name, ip_address, pass_word, port_no, channel_no, waybill_code, stock_code, start_time, end_time, picking_list_no, order_tag)");
             strSql.Append(" values (");
-            strSql.Append("'" + model.userName + "', '" + model.ipAddress + "', '" + model.passWord + "', '" + model.portNo + "', '" + model.channelNo + "', '" + model.waybillCode + "', '" + model.stockCode + "', " + model.startTime + ", " + model.endTime + ", '" + model.pickingListNo + "')");
+            strSql.Append("'" + model.userName + "', '" + model.ipAddress + "', '" + model.passWord + "', '" + model.portNo + "', '" + model.channelNo + "', '" + model.waybillCode + "', '" + model.stockCode + "', " + model.startTime + ", " + model.endTime + ", '" + model.pickingListNo + "', '" + model.orderTag + "')");
             string query = strSql.ToString();
             return query;
         }
@@ -128,9 +128,9 @@ namespace HikWebApi.TaoTianDAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("insert into whs_taotian_upload(");
-            strSql.Append("user_name, ip_address, pass_word, port_no, channel_no, waybill_code, stock_code, start_time, end_time, picking_list_no)");
+            strSql.Append("user_name, ip_address, pass_word, port_no, channel_no, waybill_code, stock_code, start_time, end_time, picking_list_no, order_tag)");
             strSql.Append(" values (");
-            strSql.Append("'" + model.userName + "', '" + model.ipAddress + "', '" + model.passWord + "', '" + model.portNo + "', '" + model.channelNo + "', '" + model.waybillCode + "', '" + model.stockCode + "', " + model.startTime + ", " + model.endTime + ", '" + model.pickingListNo + "')");
+            strSql.Append("'" + model.userName + "', '" + model.ipAddress + "', '" + model.passWord + "', '" + model.portNo + "', '" + model.channelNo + "', '" + model.waybillCode + "', '" + model.stockCode + "', " + model.startTime + ", " + model.endTime + ", '" + model.pickingListNo + "', '" + model.orderTag + "')");
             // 将 StringBuilder 转换为字符串
             string query = strSql.ToString();
             return query;
@@ -140,9 +140,9 @@ namespace HikWebApi.TaoTianDAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("insert into whs_taotian_upload(");
-            strSql.Append("user_name, ip_address, pass_word, port_no, channel_no, waybill_code, stock_code, start_time,end_time, picking_list_no)");
+            strSql.Append("user_name, ip_address, pass_word, port_no, channel_no, waybill_code, stock_code, start_time,end_time, picking_list_no, order_tag)");
             strSql.Append(" values (");
-            strSql.Append("'" + model.userName + "', '" + model.ipAddress + "', '" + model.passWord + "', '" + model.portNo + "', '" + model.channelNo + "', '" + model.waybillCode + "', '" + model.stockCode + "', " + model.startTime + "," + model.endTime + ", '" + model.pickingListNo + "')");
+            strSql.Append("'" + model.userName + "', '" + model.ipAddress + "', '" + model.passWord + "', '" + model.portNo + "', '" + model.channelNo + "', '" + model.waybillCode + "', '" + model.stockCode + "', " + model.startTime + "," + model.endTime + ", '" + model.pickingListNo + "', '" + model.orderTag + "')");
             // 将 StringBuilder 转换为字符串
             string query = strSql.ToString();
             int rows = SQLiteHelper.ExecuteSql(query);
@@ -178,9 +178,9 @@ namespace HikWebApi.TaoTianDAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("insert into whs_taotian_upload_log(");
-            strSql.Append("user_name, ip_address, pass_word, port_no, channel_no, waybill_code, stock_code, start_time, picking_list_no)");
+            strSql.Append("user_name, ip_address, pass_word, port_no, channel_no, waybill_code, stock_code, start_time, picking_list_no, order_tag)");
             strSql.Append(" values (");
-            strSql.Append("'" + model.userName + "', '" + model.ipAddress + "', '" + model.passWord + "', '" + model.portNo + "', '" + model.channelNo + "', '" + model.waybillCode + "', '" + model.stockCode + "', " + model.startTime + ", '" + model.pickingListNo + "')");
+            strSql.Append("'" + model.userName + "', '" + model.ipAddress + "', '" + model.passWord + "', '" + model.portNo + "', '" + model.channelNo + "', '" + model.waybillCode + "', '" + model.stockCode + "', " + model.startTime + ", '" + model.pickingListNo + "', '" + model.orderTag + "')");
             // 将 StringBuilder 转换为字符串
             string query = strSql.ToString();
             int rows = SQLiteHelper.ExecuteSql(query);

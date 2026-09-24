@@ -167,31 +167,31 @@ namespace HikWebApi.Controllers
                 }
 
                 long dateTimeTicks = GetChinaTicks(DateTime.Now);
-                if (hikOsdRequest.orderTag == "TT")
+                string orderTag = string.IsNullOrEmpty(hikOsdRequest.orderTag) ? "FTT" : hikOsdRequest.orderTag;
+                if (!string.IsNullOrEmpty(hikOsdRequest.waybillCode))
                 {
-                    if (!string.IsNullOrEmpty(hikOsdRequest.waybillCode))
+                    TaoTianCutDataRequest taoTianCutDataRequest = new TaoTianCutDataRequest();
+                    taoTianCutDataRequest.waybillCode = hikOsdRequest.waybillCode;
+                    taoTianCutDataRequest.pickingListNo = hikOsdRequest.osdMessage;
+                    taoTianCutDataRequest.stockCode = hikOsdRequest.stockCode;
+                    taoTianCutDataRequest.startTime = dateTimeTicks;
+                    taoTianCutDataRequest.ipAddress = hikOsdRequest.ipAddress;
+                    taoTianCutDataRequest.portNo = hikOsdRequest.portNo;
+                    taoTianCutDataRequest.passWord = hikOsdRequest.passWord;
+                    taoTianCutDataRequest.userName = hikOsdRequest.userName;
+                    taoTianCutDataRequest.channelNo = hikOsdRequest.channelNo;
+                    taoTianCutDataRequest.orderTag = orderTag;
+                    TaoTianHikDAL taoTianHikDAL = new TaoTianHikDAL();
+                    if (!taoTianHikDAL.ExcuteGenLogSQL(taoTianCutDataRequest))
                     {
-                        TaoTianCutDataRequest taoTianCutDataRequest = new TaoTianCutDataRequest();
-                        taoTianCutDataRequest.waybillCode = hikOsdRequest.waybillCode;
-                        taoTianCutDataRequest.pickingListNo = hikOsdRequest.osdMessage;
-                        taoTianCutDataRequest.stockCode = hikOsdRequest.stockCode;
-                        taoTianCutDataRequest.startTime = dateTimeTicks;
-                        taoTianCutDataRequest.ipAddress = hikOsdRequest.ipAddress;
-                        taoTianCutDataRequest.portNo = hikOsdRequest.portNo;
-                        taoTianCutDataRequest.passWord = hikOsdRequest.passWord;
-                        taoTianCutDataRequest.userName = hikOsdRequest.userName;
-                        taoTianCutDataRequest.channelNo = hikOsdRequest.channelNo;
-                        TaoTianHikDAL taoTianHikDAL = new TaoTianHikDAL();
-                        if (!taoTianHikDAL.ExcuteGenLogSQL(taoTianCutDataRequest))
+                        return new HikSetOsdResponse
                         {
-                            return new HikSetOsdResponse
-                            {
-                                code = -1,
-                                message = "捕捉错误：插入到sqllite失败"
-                            };
-                        }
+                            code = -1,
+                            message = "捕捉错误：插入到sqllite失败"
+                        };
                     }
                 }
+
 
                 return new HikSetOsdResponse
                 {
@@ -317,105 +317,104 @@ namespace HikWebApi.Controllers
                         message = "NET_DVR_Clear failed, error code= " + iLastErr
                     };
                 }
-                string isSplitVideo = _configuration["AppSettings:IsSplitVideo"] ?? "0";
                 //如果是淘天的订单，就插入表
                 long dateTimeTicks = GetChinaTicks(DateTime.Now);
-                if (hikOsdRequest.orderTag == "TT" || isSplitVideo == "1")
+
+                if (!string.IsNullOrEmpty(hikOsdRequest.osdMessage))
                 {
-                    if (!string.IsNullOrEmpty(hikOsdRequest.osdMessage))
+                    TaoTianHikDAL taoTianHikDAL = new TaoTianHikDAL();
+                    string strWhere = "picking_list_no = '" + hikOsdRequest.osdMessage + "'";
+                    DataTable dt = taoTianHikDAL.GetLogList(strWhere);
+                    List<TaoTianCutDataRequest> taoTianCutDataList = DataTableToList(dt);
+                    // 遍历数据行
+                    // 定义一个变量用于更新结束时间
+                    int lastUpdatedIndex = 0;
+                    // 遍历数据行
+                    for (int i = 1; i < taoTianCutDataList.Count; i++)
                     {
-                        TaoTianHikDAL taoTianHikDAL = new TaoTianHikDAL();
-                        string strWhere = "picking_list_no = '" + hikOsdRequest.osdMessage + "'";
-                        DataTable dt = taoTianHikDAL.GetLogList(strWhere);
-                        List<TaoTianCutDataRequest> taoTianCutDataList = DataTableToList(dt);
-                        // 遍历数据行
-                        // 定义一个变量用于更新结束时间
-                        int lastUpdatedIndex = 0;
-                        // 遍历数据行
-                        for (int i = 1; i < taoTianCutDataList.Count; i++)
+                        // 计算时间差
+                        //long timeDiff = taoTianCutDataList[i].startTime - taoTianCutDataList[i - 1].startTime;
+                        // 如果时间差大于10秒
+                        // 将毫秒时间戳转换为DateTime
+
+                        DateTime dateTime1 = ConvertToBeijingTime(taoTianCutDataList[i - 1].startTime);
+                        DateTime dateTime2 = ConvertToBeijingTime(taoTianCutDataList[i].startTime);
+
+                        // 计算时间间隔
+                        TimeSpan timeDifference = dateTime2 - dateTime1;
+                        if (timeDifference.TotalSeconds > 20)
                         {
-                            // 计算时间差
-                            //long timeDiff = taoTianCutDataList[i].startTime - taoTianCutDataList[i - 1].startTime;
-                            // 如果时间差大于10秒
-                            // 将毫秒时间戳转换为DateTime
-                        
-                            DateTime dateTime1 = ConvertToBeijingTime(taoTianCutDataList[i - 1].startTime);
-                            DateTime dateTime2 = ConvertToBeijingTime(taoTianCutDataList[i].startTime);
-
-                            // 计算时间间隔
-                            TimeSpan timeDifference = dateTime2 - dateTime1;
-                            if (timeDifference.TotalSeconds > 20)
+                            // 更新结束时间
+                            for (int j = lastUpdatedIndex; j < i; j++)
                             {
-                                // 更新结束时间
-                                for (int j = lastUpdatedIndex; j < i; j++)
-                                {
-                                    taoTianHikDAL.Update(taoTianCutDataList[j].id, taoTianCutDataList[i].startTime);
-                                    taoTianCutDataList[j].endTime = taoTianCutDataList[i].startTime;
-                                }
-
-                                // 更新 lastUpdatedIndex
-                                lastUpdatedIndex = i;
+                                taoTianHikDAL.Update(taoTianCutDataList[j].id, taoTianCutDataList[i].startTime);
+                                taoTianCutDataList[j].endTime = taoTianCutDataList[i].startTime;
                             }
-                        }
-                        // 对于最后一行或者循环到后面没有数据了的情况，使用变量更新结束时间
-                        //int lastTimeStamp = taoTianCutDataList.Count > 0 ? taoTianCutDataList[taoTianCutDataList.Count - 1].startTime : 0;
-                        for (int j = lastUpdatedIndex; j < taoTianCutDataList.Count; j++)
-                        {   
-                            taoTianHikDAL.Update(taoTianCutDataList[j].id, dateTimeTicks);
-                            taoTianCutDataList[j].endTime = dateTimeTicks;
-                        }
 
-                        // 分组并获取每组最小的 startTime 和拼接的 waybillCode
-                        var result = taoTianCutDataList.GroupBy(
-                            d => new { d.endTime, d.userName, d.ipAddress, d.passWord, d.portNo, d.channelNo,d.pickingListNo,d.stockCode },
-                            (key, group) => new
-                            {
-                                key.endTime,
-                                key.userName,
-                                key.ipAddress,
-                                key.passWord,
-                                key.portNo,
-                                key.channelNo,
-                                key.pickingListNo,
-                                key.stockCode,
-                                minStartTime = group.Min(d => d.startTime),
-                                waybillCodes = string.Join(",", group.Select(d => d.waybillCode))
-                            }
-                        );
+                            // 更新 lastUpdatedIndex
+                            lastUpdatedIndex = i;
+                        }
+                    }
+                    // 对于最后一行或者循环到后面没有数据了的情况，使用变量更新结束时间
+                    //int lastTimeStamp = taoTianCutDataList.Count > 0 ? taoTianCutDataList[taoTianCutDataList.Count - 1].startTime : 0;
+                    for (int j = lastUpdatedIndex; j < taoTianCutDataList.Count; j++)
+                    {
+                        taoTianHikDAL.Update(taoTianCutDataList[j].id, dateTimeTicks);
+                        taoTianCutDataList[j].endTime = dateTimeTicks;
+                    }
 
-                        ArrayList sqlList = new ArrayList();
-                        foreach (var item in result)
+                    // 分组并获取每组最小的 startTime 和拼接的 waybillCode
+                    var result = taoTianCutDataList.GroupBy(
+                        d => new { d.endTime, d.userName, d.ipAddress, d.passWord, d.portNo, d.channelNo, d.pickingListNo, d.stockCode, d.orderTag },
+                        (key, group) => new
                         {
-                            TaoTianCutDataRequest dataRequest = new TaoTianCutDataRequest
+                            key.endTime,
+                            key.userName,
+                            key.ipAddress,
+                            key.passWord,
+                            key.portNo,
+                            key.channelNo,
+                            key.pickingListNo,
+                            key.stockCode,
+                            key.orderTag,
+                            minStartTime = group.Min(d => d.startTime),
+                            waybillCodes = string.Join(",", group.Select(d => d.waybillCode))
+                        }
+                    );
+
+                    ArrayList sqlList = new ArrayList();
+                    foreach (var item in result)
+                    {
+                        TaoTianCutDataRequest dataRequest = new TaoTianCutDataRequest
+                        {
+                            userName = item.userName,
+                            ipAddress = item.ipAddress,
+                            passWord = item.passWord,
+                            portNo = item.portNo,
+                            channelNo = item.channelNo,
+                            endTime = item.endTime,
+                            startTime = item.minStartTime,
+                            waybillCode = item.waybillCodes,
+                            pickingListNo = item.pickingListNo,
+                            stockCode = item.stockCode,
+                            orderTag = item.orderTag
+                        };
+                        string sql = taoTianHikDAL.GetGenCutSQL(dataRequest);
+                        sqlList.Add(sql);
+                    }
+                    if (sqlList != null && sqlList.Count > 0)
+                    {
+                        if (!taoTianHikDAL.BathAdd(sqlList))
+                        {
+                            return new HikSetOsdResponse
                             {
-                                userName = item.userName,
-                                ipAddress = item.ipAddress,
-                                passWord = item.passWord,
-                                portNo = item.portNo,
-                                channelNo = item.channelNo,
-                                endTime = item.endTime,
-                                startTime = item.minStartTime,
-                                waybillCode = item.waybillCodes,
-                                pickingListNo = item.pickingListNo,
-                                stockCode = item.stockCode,
-                                orderTag=item.orderTag
+                                code = -1,
+                                message = "捕捉错误：插入到sqllite失败"
                             };
-                            string sql = taoTianHikDAL.GetGenCutSQL(dataRequest);
-                            sqlList.Add(sql);
-                        }
-                        if (sqlList != null && sqlList.Count > 0)
-                        {
-                            if (!taoTianHikDAL.BathAdd(sqlList))
-                            {
-                                return new HikSetOsdResponse
-                                {
-                                    code = -1,
-                                    message = "捕捉错误：插入到sqllite失败"
-                                };
-                            }
                         }
                     }
                 }
+
 
                 return new HikSetOsdResponse
                 {
@@ -450,6 +449,7 @@ namespace HikWebApi.Controllers
                 taoTianCutDataRequest.stockCode = row["stock_code"].ToString();
                 taoTianCutDataRequest.startTime = Convert.ToInt64(row["start_time"]);
                 taoTianCutDataRequest.pickingListNo = row["picking_list_no"].ToString();
+                taoTianCutDataRequest.orderTag = row["order_tag"].ToString();
                 taoTianCutDataList.Add(taoTianCutDataRequest);
             }
 

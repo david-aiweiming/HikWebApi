@@ -21,7 +21,6 @@ namespace HikWebApi.Model
             public long startTime { get; set; }
             public long endTime { get; set; }
             public string orderTag { get; set; }
-
             public string pickingListNo { get; set; }
         }
 
