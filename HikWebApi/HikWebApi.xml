@@ -78,20 +78,6 @@
             <param name="taoTianCutDataRequestList"></param>
             <returns></returns>
         </member>
-        <member name="M:HikWebApi.DESEncrypt.Encrypt(System.String)">
-            <summary>
-            加密
-            </summary>
-            <param name="text"></param>
-            <returns></returns>
-        </member>
-        <member name="M:HikWebApi.DESEncrypt.Decrypt(System.String)">
-            <summary>
-            解密
-            </summary>
-            <param name="text"></param>
-            <returns></returns>
-        </member>
         <member name="T:HikWebApi.SQLiteHelper">
             <summary>
             数据访问基础类(基于SQLite)

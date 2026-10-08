@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 namespace HikWebApi
 {
 
-
     public static class DESEncrypt
     {
         private const string DefaultKey = "Beg38NWSFpKrqF4D";
@@ -17,20 +16,12 @@ namespace HikWebApi
         // Java Charset.forName("GBK")
         private static readonly Encoding DefaultEncoding =
             Encoding.GetEncoding(936);
-        /// <summary>
-        /// 加密
-        /// </summary>
-        /// <param name="text"></param>
-        /// <returns></returns>
+
         public static string Encrypt(string text)
         {
             return Encrypt(text, DefaultKey);
         }
-        /// <summary>
-        /// 解密
-        /// </summary>
-        /// <param name="text"></param>
-        /// <returns></returns>
+
         public static string Decrypt(string text)
         {
             return Decrypt(text, DefaultKey);

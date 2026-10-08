@@ -86,7 +86,7 @@ namespace HikWebApi.Controllers
                         return new HikSetOsdResponse
                         {
                             code = -1,
-                            message = "NET_DVR_Login_V30 failed, " + ex.Message
+                            message = "NET_DVR_Login_V30 failed：解密失败" 
                         };
                     }
                     //登录设备 Login the device
@@ -100,7 +100,7 @@ namespace HikWebApi.Controllers
                             code = -1,
                             message = "NET_DVR_Login_V30 failed, " + HikErrorMsg.HikLoginErrorMessage(iLastErr)
                         };
-                    };
+                    }
                 }
 
                 //GET struShowStrCfg
@@ -260,7 +260,7 @@ namespace HikWebApi.Controllers
                         return new HikSetOsdResponse
                         {
                             code = -1,
-                            message = "NET_DVR_Login_V30 failed, " + ex.Message
+                            message = "NET_DVR_Login_V30 failed：解密失败"
                         };
                     }
 
@@ -275,7 +275,7 @@ namespace HikWebApi.Controllers
                             code = -1,
                             message = "NET_DVR_Login_V30 failed, " + HikErrorMsg.HikLoginErrorMessage(iLastErr)
                         };
-                    };
+                    }
                 }
                 //GET struShowStrCfg
                 NET_DVR_SHOWSTRING_V30 m_struShowStrCfg = new NET_DVR_SHOWSTRING_V30();//初始化叠加字符结构体
