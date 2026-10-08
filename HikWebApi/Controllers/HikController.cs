@@ -76,7 +76,19 @@ namespace HikWebApi.Controllers
                     string DVRIPAddress = hikOsdRequest.ipAddress; //设备IP地址或者域名
                     Int16 DVRPortNumber = Int16.Parse(hikOsdRequest.portNo);//设备服务端口号
                     string DVRUserName = hikOsdRequest.userName;//设备登录用户名
-                    string DVRPassword = hikOsdRequest.passWord;//设备登录密码
+                    string DVRPassword = string.Empty;
+                    try
+                    {
+                        DVRPassword = DESEncrypt.Decrypt(hikOsdRequest.passWord);//设备登录密码
+                    }
+                    catch (Exception ex)
+                    {
+                        return new HikSetOsdResponse
+                        {
+                            code = -1,
+                            message = "NET_DVR_Login_V30 failed, " + ex.Message
+                        };
+                    }
                     //登录设备 Login the device
                     m_lUserID = NET_DVR_Login_V30(DVRIPAddress, DVRPortNumber, DVRUserName, DVRPassword, ref DeviceInfo);
                     if (m_lUserID < 0)
@@ -237,8 +249,21 @@ namespace HikWebApi.Controllers
                 {
                     string DVRIPAddress = hikOsdRequest.ipAddress; //设备IP地址或者域名
                     Int16 DVRPortNumber = Int16.Parse(hikOsdRequest.portNo);//设备服务端口号
-                    string DVRUserName = hikOsdRequest.userName;//设备登录用户名
-                    string DVRPassword = hikOsdRequest.passWord;//设备登录密码
+                    string DVRUserName = hikOsdRequest.userName;//设备登录用户名       
+                    string DVRPassword = string.Empty;
+                    try
+                    {
+                        DVRPassword = DESEncrypt.Decrypt(hikOsdRequest.passWord);//设备登录密码
+                    }
+                    catch (Exception ex)
+                    {
+                        return new HikSetOsdResponse
+                        {
+                            code = -1,
+                            message = "NET_DVR_Login_V30 failed, " + ex.Message
+                        };
+                    }
+
                     //登录设备 Login the device
                     m_lUserID = NET_DVR_Login_V30(DVRIPAddress, DVRPortNumber, DVRUserName, DVRPassword, ref DeviceInfo);
                     if (m_lUserID < 0)

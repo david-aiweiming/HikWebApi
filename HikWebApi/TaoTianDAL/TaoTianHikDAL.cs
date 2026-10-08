@@ -13,45 +13,6 @@ namespace HikWebApi.TaoTianDAL
 {
     public class TaoTianHikDAL
     {
-        //public bool Add(TaoTianCutDataRequest model)
-        //{
-        //    StringBuilder strSql = new StringBuilder();
-        //    strSql.Append("insert into whs_taotian_upload(");
-        //    strSql.Append("user_name, ip_address, pass_word, port_no, channel_no, waybill_code, stock_code, start_time, end_time, picking_list_no)");
-        //    strSql.Append(" values (");
-        //    strSql.Append("@userName, @ipAddress, @passWord, @portNo, @channelNo, @waybillCode, @stockCode, @startTime, @endTime, @pickingListNo)");
-        //    SqliteParameter[] parameters = {
-        //                  new SqliteParameter("@userName", SqliteType.Text, 50),
-        //    new SqliteParameter("@ipAddress", SqliteType.Text, 50),
-        //    new SqliteParameter("@passWord", SqliteType.Text, 25),
-        //    new SqliteParameter("@portNo", SqliteType.Text, 50),
-        //    new SqliteParameter("@channelNo", SqliteType.Text, 50),
-        //    new SqliteParameter("@waybillCode", SqliteType.Text, 50),
-        //    new SqliteParameter("@stockCode", SqliteType.Text, 50),
-        //    new SqliteParameter("@startTime", SqliteType.Integer),
-        //    new SqliteParameter("@endTime", SqliteType.Integer),
-        //    new SqliteParameter("@pickingListNo", SqliteType.Text, 50)};
-        //    parameters[0].Value = model.userName;
-        //    parameters[1].Value = model.ipAddress;
-        //    parameters[2].Value = model.passWord;
-        //    parameters[3].Value = model.portNo;
-        //    parameters[4].Value = model.channelNo;
-        //    parameters[5].Value = model.waybillCode;
-        //    parameters[6].Value = model.stockCode;
-        //    parameters[7].Value = model.startTime;
-        //    parameters[8].Value = model.endTime;
-        //    parameters[9].Value = model.pickingListNo;
-        //    int rows = SQLiteHelper.ExecuteSql(strSql.ToString(), parameters);
-        //    if (rows > 0)
-        //    {
-        //        return true;
-        //    }
-        //    else
-        //    {
-        //        return false;
-        //    }
-        //}
-
 
         public bool Delete(int ID)
         {
